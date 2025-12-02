@@ -9,15 +9,12 @@ const formatValue = (value: AssiendType): number | string | boolean => {
   return !value;
 };
 
-type StringOrNumber = string | number[];
-const getLength = (value: StringOrNumber) => {
+type StringOrArray = string | any[];
+const getLength = (value: StringOrArray): number => {
   if (Array.isArray(value)) {
     return value.length;
-  } else if (typeof value === "string") {
-    return value.length;
-  } else {
-    return "INVALID TYPE";
   }
+  return value.length;
 };
 
 class Person {
