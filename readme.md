@@ -1,88 +1,50 @@
-What are some differences between interfaces and types in TypeScript?
-Ans : Interface and types are smiliar behaviour or overlaping concept , it uses typescript
-shape of object, functions signature or more complex types but they has some difference
-syntax
-interface IUser{
-name:string;
-age:number;
+Iterface ও Type
+-Interface কী?
+
+Object এর structure / shape নির্ধারণ করতে ব্যবহার হয়
+Extend করা যায়
+Declaration merging সাপোর্ট করে (একই নাম বারবার ব্যবহার করা যায়)
+
+interface IUser {
+name: string;
+age: number;
 }
-type User{
-name:string;
-age:number;
-}
-Extending / Inheritance (interface)
+Object structure বানাতে হবে
 
-- Interface can extend multiple interfaces:
-- Interface supports declaration merging:
-- preferred for public API definitions and when you want extensibility via merging or multiple inheritance.
-- Flexibility medium
-  type
-- Type can use intersection types for similar behavior
+Public API বানাতে হবে
 
-- Type cannot be merged; redeclaring a type with the same name causes an error.
-  preferred for unions, tuples, primitives, or complex type combinations.
-- Flexibility high
-  What is the use of the keyof keyword in TypeScript? Provide an example.
-  Answer : "keyof is an operator in TypeScript that takes an object type and produces a union of its keys as string literal types.
-  -Ensures type safety when accessing object properties dynamically.
-  -Prevents runtime errors due to typos in property names.
-  -Works well with generic functions to make them type-safe.
+বড় প্রজেক্টে extensible কোড দরকার
 
-example:
-function getValue<T, K extends keyof T>(obj: T, key: K) {
-return obj[key];
-}
-const user = { name: "Alice", age: 25 };
-const name = getValue(user, "name");
-const invalid = getValue(user, "salary");
+-- Type কী?
 
-Explain the difference between any, unknown, and never types in TypeScript?
-any:
--> Disable type checking. You can assign anything to it and do anything with it. and it is Quick escape hatch, but unsafe. Also ite hide bugs
-let a:any;
-a= 5
-a= '5'
-unknown:
--> Safe counterpart of any. You can assign anything to it, but cannot use it directly without type checking or type assertion.
--> When you don’t know the type yet but want type safety.
-let u: unknown;
-u = 5;
-u = "hello";
-never:
--> Represents a value that never occurs. Commonly used for:
-Functions that throw errors or never return
-Exhaustive checks in switch statements
+Object ছাড়াও union, tuple, primitive, complex type বানাতে পারে
 
-What is the use of enums in TypeScript? Provide an example of a numeric and string enum?
-Answer:
--> Enums (short for enumerations) allow you to define a set of named constants.
--> They make code more readable and type-safe, instead of using plain numbers or strings.
+Intersection (&) ব্যবহার করে extend করা যায়
 
-enum Direction {
-Up, // 0
-Down, // 1
-Left, // 2
-Right // 3
-}
+Declaration merging সাপোর্ট করে না
 
-let move: Direction = Direction.Up;
-console.log(move); // 0
+type User = {
+name: string;
+age: number;
+};
 
-Provide an example of using union and intersection types in TypeScript?
-Answer:
+Union (|) দরকার
 
-1. Union Types (|)
-   A union type allows a value to be one of multiple types.
-   Use it when a variable can hold different types of values.
-   Example:
-   type ID = string | number;
-   let userId: ID;
-   userId = 123;  
-    userId = "abc";
-   2.Intersection Types (&)
-   An intersection type combines multiple types into one.
-   The resulting type must satisfy all included types.
+Tuple / primitive দরকার
 
+Union Types (|)
+ইউনিয়ন টাইপ কোনো ভেরিয়েবলকে একাধিক টাইপের মধ্যে যেকোনো একটিতে রাখা যায়।
+ব্যবহার: যখন কোনো ভেরিয়েবল বিভিন্ন ধরনের মান রাখতে পারে।
+উদাহরণ:
+
+type ID = string | number;
+let userId: ID;
+userId = 123;  
+userId = "abc";
+
+Intersection Types (&)
+ইন্টারসেকশন টাইপ একাধিক টাইপকে মিলিয়ে একটি টাইপ তৈরি করে।
+এই টাইপের ভেরিয়েবলকে সব অন্তর্ভুক্ত টাইপের শর্ত পূরণ করতে হবে।
 
 Story of interface and type and keyof
 
